@@ -1,12 +1,12 @@
 Summary:	Lightweight C library for storing RDF data in memory
 Summary(pl.UTF-8):	Lekka biblioteka C do przechowywania danych RDF w pamięci
 Name:		sord
-Version:	0.10.0
+Version:	0.10.4
 Release:	1
 License:	ISC
 Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	ad20105c0cefaed32d59c4665d682cab
+# Source0-md5:	9353e5b5e26c926c1a8c0e43fa577f31
 URL:		http://drobilla.net/software/sord/
 BuildRequires:	libstdc++-devel
 BuildRequires:	pcre-devel
@@ -65,6 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/sordi
 %attr(755,root,root) %{_libdir}/libsord-0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libsord-0.so.0
+%{_mandir}/man1/sord_validate.1*
 %{_mandir}/man1/sordi.1*
 
 %files devel
