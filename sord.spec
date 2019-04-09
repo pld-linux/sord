@@ -1,18 +1,18 @@
 Summary:	Lightweight C library for storing RDF data in memory
 Summary(pl.UTF-8):	Lekka biblioteka C do przechowywania danych RDF w pamięci
 Name:		sord
-Version:	0.16.0
+Version:	0.16.2
 Release:	1
 License:	ISC
 Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	010313c3baf5b8a4a639e9ee45310af6
+# Source0-md5:	eb1d1c62ffb5153d5e1f5d12a3b7279b
 URL:		http://drobilla.net/software/sord/
 BuildRequires:	libstdc++-devel
 BuildRequires:	pcre-devel
 BuildRequires:	python
-BuildRequires:	serd-devel >= 0.22.4
-Requires:	serd >= 0.22.4
+BuildRequires:	serd-devel >= 0.30.0
+Requires:	serd >= 0.30.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -26,7 +26,7 @@ Summary:	Header files for sord library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki sord
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	serd-devel >= 0.22.4
+Requires:	serd-devel >= 0.30.0
 
 %description devel
 Header files for sord library.
