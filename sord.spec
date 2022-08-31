@@ -1,18 +1,29 @@
+#
+# Conditional build:
+%bcond_with	apidocs	# API documentation
+
 Summary:	Lightweight C library for storing RDF data in memory
 Summary(pl.UTF-8):	Lekka biblioteka C do przechowywania danych RDF w pamięci
 Name:		sord
-Version:	0.16.8
+Version:	0.16.12
 Release:	1
 License:	ISC
 Group:		Libraries
-Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	c54d8e7e2714b4e6280b58b5ecfc2e1d
+Source0:	http://download.drobilla.net/%{name}-%{version}.tar.xz
+# Source0-md5:	f0fa98fcb0dc24a05eee518d41fae070
 URL:		http://drobilla.net/software/sord/
 BuildRequires:	libstdc++-devel
+BuildRequires:	meson >= 0.56.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pcre-devel
-BuildRequires:	python
-BuildRequires:	serd-devel >= 0.30.0
-Requires:	serd >= 0.30.0
+BuildRequires:	pkgconfig
+BuildRequires:	serd-devel >= 0.30.9
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
+%if %{with apidocs}
+BuildRequires:	doxygen
+%endif
+Requires:	serd >= 0.30.9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -26,7 +37,7 @@ Summary:	Header files for sord library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki sord
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	serd-devel >= 0.30.0
+Requires:	serd-devel >= 0.30.9
 
 %description devel
 Header files for sord library.
@@ -38,19 +49,22 @@ Pliki nagłówkowe biblioteki sord.
 %setup -q
 
 %build
-CC="%{__cc}" \
-CFLAGS="%{rpmcflags}" \
-./waf configure \
-	--prefix=%{_prefix} \
-	--libdir=%{_libdir}
+%meson build \
+	--default-library=shared \
+	%{!?with_apidocs:-Ddocs=disabled}
 
-./waf -v
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-./waf install \
-	--destdir=$RPM_BUILD_ROOT
+%ninja_install -C build
+
+%if %{without apidocs}
+# -Ddocs=disabled disables man page installation
+install -d $RPM_BUILD_ROOT%{_mandir}/man1
+cp -p doc/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
