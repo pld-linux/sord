@@ -12,7 +12,6 @@ Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.xz
 # Source0-md5:	f0fa98fcb0dc24a05eee518d41fae070
 URL:		http://drobilla.net/software/sord/
-BuildRequires:	libstdc++-devel
 BuildRequires:	meson >= 0.56.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pcre-devel
